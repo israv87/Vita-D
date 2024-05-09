@@ -1,0 +1,1281 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Vita-D</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/styles.min.css' %}"
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
+  </head>
+  <body>
+    <header class="d-flex align-items-center header fixed-top" id="header">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="d-flex align-items-center logo" href="{% url 'dashboard' %}">
+          <span class="d-none d-lg-block" style="color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif">
+              VITA -&nbsp;
+          </span>
+          <img src="{% static 'assets/img/logo.png' %}" alt="VITA Logo" />
+      </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <!---
+      <div class="search-bar">
+        <form
+          class="d-flex align-items-center search-form"
+          method="POST"
+          action="#"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search"
+            title="Enter search keyword"
+          /><button type="submit" title="Search">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>--->
+      <nav class="ms-auto header-nav">
+        <ul class="d-flex align-items-center">
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="{% url 'login' %}" data-bs-toggle="dropdown"
+              ><i class="bi bi-box-arrow-right"></i
+              ></a
+            >
+                      </li>
+        </ul>
+      </nav>
+    </header>
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <!-- Pacientes -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#pacientes-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i>
+            <span>Pacientes</span>
+            <i class="ms-auto bi bi-chevron-down"></i>
+          </a>
+          <ul id="pacientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'nuevo_paciente' %}">
+                <i class="bi bi-circle"></i>
+                <span>Nuevo Paciente</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'historial_pacientes' %}">
+                <i class="bi bi-circle"></i>
+                <span>Historial de Pacientes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Predicciones -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#predicciones-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i>
+            <span>Predicciones</span>
+            <i class="ms-auto bi bi-chevron-down"></i>
+          </a>
+          <ul id="predicciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'nueva_prediccion' %}">
+                <i class="bi bi-circle"></i>
+                <span>Nueva Predicción</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'historial_predicciones' %}">
+                <i class="bi bi-circle"></i>
+                <span>Historial de predicciones</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Sistema -->
+        <li class="nav-heading">Sistema</li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'profile' %}">
+            <i class="bi bi-person"></i><span>Profile</span>
+        </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'faq' %}">
+              <i class="bi bi-question-circle"></i>
+              <span>F.A.Q</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'contact' %}">
+              <i class="bi bi-envelope"></i>
+              <span>Contact</span>
+          </a>
+      </li>
+      </ul>
+    </aside>    
+    <main id="main" class="main">
+      <div class="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"><span>Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section dashboard">
+
+                            <!-- Accordion -->
+              <div class="accordion accordion-flush" id="dashboardAccordion">
+                <!-- Accordion Item for Summary -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingSummary">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSummary" aria-expanded="true" aria-controls="flush-collapseSummary">
+                      Resumen
+                    </button>
+                  </h2>
+                  <div id="flush-collapseSummary" class="accordion-collapse collapse show" aria-labelledby="flush-headingSummary" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+
+
+                                    <div class="row">
+                                      <div class="col-md-6 col-xl-3 mb-4">
+                                        <div class="card info-card sales-card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Pacientes <span>| Hoy</span></h5>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                        <i class="bi bi-people"></i>
+                                                    </div>
+                                                    <div class="ps-3">
+                                      <h6>{{ total_pacientes }}</h6>
+                                    <!--  <span class="fw-bold text-success small pt-1">12%</span
+                                      >-->
+                                      <span class="text-muted small pt-2 ps-1">registrados</span>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-xl-3 mb-4">
+                          <div class="card info-card revenue-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Predicciones<span>| Hoy</span></h5>
+                                  <div class="d-flex align-items-center">
+                                    <div
+                                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                                    >
+                                      <i class="bi bi-file-earmark-check"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                      <h6>{{ total_predicciones }}</h6>
+                                    <!--   <span class="fw-bold text-success small pt-1">8%</span
+                                      > --->
+                                      <span class="text-muted small pt-2 ps-1">realizadas</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-12 col-xxl-3">
+                              <div class="card info-card customers-card">
+                                <div class="filter">
+                                  <a class="icon" href="#" data-bs-toggle="dropdown"
+                                    ><i class="bi bi-three-dots"></i
+                                  ></a>
+                                  <ul
+                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                                  >
+                                  <li class="text-start dropdown-header"><h6>Filtro</h6></li>
+                                  <li><a class="dropdown-item" href="#">Hoy</a></li>
+                                  <li><a class="dropdown-item" href="#">Este mes</a></li>
+                                  <li><a class="dropdown-item" href="#">Este año</a></li>
+                                  </ul>
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Presición<span>| Hoy</span></h5>
+                                  <div class="d-flex align-items-center">
+                                    <div
+                                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                                    >
+                                      <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                      <h6>{{ accuracy_promedio }} %</h6>
+                                      <span class="fw-bold text-success small pt-1">70-30%</span
+                                      ><span class="text-muted small pt-2 ps-1">train-test</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-xl-12 col-xxl-3">
+                              <div class="card info-card customers-card">
+                                <div class="filter">
+                                  <a class="icon" href="#" data-bs-toggle="dropdown"
+                                    ><i class="bi bi-three-dots"></i
+                                  ></a>
+                                  <ul
+                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                                  >
+                                  <li class="text-start dropdown-header"><h6>Filtro</h6></li>
+                                  <li><a class="dropdown-item" href="#">Hoy</a></li>
+                                  <li><a class="dropdown-item" href="#">Este mes</a></li>
+                                  <li><a class="dropdown-item" href="#">Este año</a></li>
+                                  </ul>
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Factores de Riesgo<span>| Hoy</span></h5>
+                                  <div class="d-flex align-items-center">
+                                    <div
+                                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                                    >
+                                      <i class="bi bi-exclamation-square-fill"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                      <h6>{{ promedio_factores }}</h6>
+                                      <!-- <span class="fw-bold text-danger small pt-1">12%</span
+                                      > --->
+                                      <span class="text-muted small pt-2 ps-1">promedio de pacientes</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Accordion Item for New Patient -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingNewPatient">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNewPatient" aria-expanded="false" aria-controls="flush-collapseNewPatient">
+                      Nuevo Paciente
+                    </button>
+                  </h2>
+                  <div id="flush-collapseNewPatient" class="accordion-collapse collapse" aria-labelledby="flush-headingNewPatient" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+                      <form method="post" action="{% url 'nuevo_paciente' %}" id="registroPaciente">
+                        {% csrf_token %}
+                        <div class="container">
+                          <div class="row">
+                            <!-- Información básica -->
+                            <div class="col-auto col-md-6 col-xxl-4 offset-xxl-0">
+                              <div class="card info-card sales-card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Información básica</h5>
+                                  <fieldset class="row mb-3">
+                                    <legend class="text-center col-form-label col-sm-3 pt-0">Sexo</legend>
+                                    <div class="col-sm-8">
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="gridRadios1" name="sexo" value="1" />
+                                        <label class="form-label form-check-label" for="gridRadios1">Femenino</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="gridRadios2" name="sexo" value="2" />
+                                        <label class="form-label form-check-label" for="gridRadios2">Masculino</label>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                  <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-5 col-form-label">Edad</label>
+                                    <div class="col-sm-8 col-xxl-7">
+                                      <input class="form-control" type="number" name="edad" placeholder="Ingrese la edad" />
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <label for="inputIMC" class="col-sm-4 col-form-label">Índice de Masa Corporal (IMC)</label>
+                                    <div class="col-sm-8">
+                                      <input class="form-control" type="number" id="inputIMC" name="imc" placeholder="Ingrese el IMC">
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-4 col-form-label">Tipo de piel</label>
+                                    <div class="col-sm-8">
+                                      <select class="form-select form-select" id="inputState-1" name="tipo_piel">
+                                        <option value="" selected>Seleccione</option>
+                                        <option value="1">TIPO 1: Piel blanca pálida; cabello rojo o rubio...</option>
+                                        <option value="2">TIPO 2: Piel blanca; cabello rojo o rubio; ojos azules, color avellana o
+                                          verdes...</option>
+                                        <option value="3">TIPO 3: Blanco más oscuro; cualquier color de ojos o de cabello...</option>
+                                        <option value="4">TIPO 4: Piel de color marrón claro...</option>
+                                        <option value="5">TIPO 5: Piel de color marrón...</option>
+                                        <option value="6">TIPO 6: Piel de color marrón oscuro o negro...</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                            <!-- Estilo de vida -->
+                            <div class="col-auto col-md-6 col-xxl-4">
+                              <div class="card info-card revenue-card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Estilo de vida</h5>
+                                  <div class="row">
+                                    <div class="col">
+                                      <div>
+                                        <label class="form-label" for="rangoCigarrillos">Cigarrillos al día:</label>
+                                        <label class="form-label" id="valorCigarrillos">0</label>
+                                        <input type="range" class="form-range" id="rangoCigarrillos" name="cigarrillos" min="1" max="7"
+                                          value="1">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <label class="form-label" for="customRange1">Consumo de Alcohol</label>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="gridRadiosNunca" name="radioAlcohol"
+                                          value="1" />
+                                        <label class="form-label form-check-label" for="gridRadiosNunca">Nunca consume</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="gridRadiosModerado" name="radioAlcohol"
+                                          value="2" />
+                                        <label class="form-label form-check-label" for="gridRadiosModerado">Consumo moderado</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="gridRadiosElevado" name="radioAlcohol"
+                                          value="3" />
+                                        <label class="form-label form-check-label" for="gridRadiosElevado">Consumo elevado</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col">
+                                      <label class="form-label" for="customRange1">Actividad Física</label>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="actividadNinguna" name="actividadFisica"
+                                          value="1" />
+                                        <label class="form-label form-check-label" for="actividadNinguna">No realiza actividad
+                                          física</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="actividadModerada" name="actividadFisica"
+                                          value="2" />
+                                        <label class="form-label form-check-label" for="actividadModerada">Actividad física
+                                          moderada</label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input type="radio" class="form-check-input" id="actividadIntensa" name="actividadFisica"
+                                          value="3" />
+                                        <label class="form-label form-check-label" for="actividadIntensa">Actividad física
+                                          intensa</label>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                         
+                          <!-- Exposición solar -->
+                          <div class="col-auto col-md-6 col-xxl-4">
+                          <div class="card info-card revenue-card">
+                            <div class="card-body">
+                              <h4 class="card-title">Exposición solar</h4>
+                              <div class="row">
+                                <div class="col">
+                                  <div>
+                                    <label class="form-label" for="rangoExposicionSol">Días a la semana que se expone al sol:</label>
+                                    <label class="form-label" id="valorExposicionSol">0</label>
+                                    <input type="range" class="form-range" id="rangoExposicionSol" name="exposicionSol" min="0" max="7"
+                                      value="0" oninput="updateLabel('rangoExposicionSol', 'valorExposicionSol')">
+                                  </div>
+                                </div>
+                                <div class="col-xxl-8">
+                                  <label class="col-form-label" for="minutosExposicion">Minutos de exposición</label>
+                                  <input class="form-control" type="number" id="minutosExposicion" name="minutosExposicion">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <label class="form-label" for="rangoProtectorSolar">Veces que usa protector solar al día:</label>
+                                  <label class="form-label" id="valorProtectorSolar">1</label>
+                                  <input type="range" class="form-range" id="rangoProtectorSolar" name="protectorSolar" min="1" max="5"
+                                    value="1" oninput="updateLabel('rangoProtectorSolar', 'valorProtectorSolar')">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <label class="form-label" for="diasCaminata">Días a la semana que camina:</label>
+                                  <input type="number" class="form-control" id="diasCaminata" name="diasCaminata" min="0" max="7"
+                                    value="0">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+                          
+                          <!-- Historial médico -->
+                          <div class="row">
+                          <div class="col-sm-4">
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">Historial médico</h4>
+                              <div class="row">
+                                <div class="col">
+                                  <label class="form-label form-label" for="inputState-2">Consumo de Fármacos</label>
+                                  <select class="form-select form-select" id="inputState-2" name="farmacos">
+                                    <option value="0" selected>Ninguno</option>
+                                    <option value="1">Anticoagulantes (dabigatran, rivaroxaban, warfarina; clodiprogel);</option>
+                                    <option value="2">Anticonvulsivantes (valcote, carbamazepina, fenobarbital)</option>
+                                    <option value="3">Antirretrovirales (atazanavir, rilpivirina)</option>
+                                    <option value="4">Antimicóticos (aciclovir, fluconazol, ketoconazol)</option>
+                                    <option value="5">Glucocorticoides (prednisona, dexamentasona, meticorten)</option>
+                                    <option value="6">Inmunosupresores (Colchicina, Hidroxicloroquina, Sulfasalazina)</option>
+                                    <option value="7">Otros</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <label class="col-form-label" for="customRange1">Nivel de Vitamina D</label>
+                                  <input class="form-control" type="number" name="nivelVitaminaD" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          <!-- Comorbilidades -->
+                          <div class="col-sm-8">
+                          <div class="card">
+                            <div class="card-body">
+                              <h4 class="card-title">Comorbilidades</h4>
+                              <div class="row">
+                                <div class="col-sm-4">
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault" name="diabetes" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDefault">Diabetes</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked"
+                                      name="hipertiroidismo" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckChecked">Hipertiroidismo</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled"
+                                      name="cancer" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled">Cancer</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckCheckedDisabled"
+                                      name="osteoporosis" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckCheckedDisabled">Osteoporosis</label>
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault-1"
+                                      name="malaAbsorcion" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDefault-1">Mala absorción</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked-1"
+                                      name="sindromeOvarioPoliquistico" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckChecked-1">Síndrome de Ovario
+                                      Poliquístico</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled-1"
+                                      name="miomatosisUterina" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled-1">Miomatosis
+                                      uterina</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckCheckedDisabled-1"
+                                      name="hipotiroidismo" />
+                                    <label class="form-label form-check-label"
+                                      for="flexSwitchCheckCheckedDisabled-1">Hipotiroidismo</label>
+                                  </div>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault-2" name="fibromialgia" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDefault-2">Fibromialgia</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked-2"
+                                      name="enfermedadHepatica" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckChecked-2">Enfermedad
+                                      Hepática</label>
+                                  </div>
+                                  <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled-2"
+                                      name="enfermedadRenal" />
+                                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled-2">Enfermedad renal</label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                          <!-- Botones de acción -->
+                          <div class="row">
+                            <div class="col-12 d-xxl-flex align-self-center justify-content-xxl-center">
+                            <button class="btn btn-outline-primary" type="reset">Limpiar Campos</button>
+                            <button class="btn btn-primary" type="submit" style="margin-left: 20px">Registrar Paciente</button>
+                          </div>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Accordion Item for Command Prediction -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingCommandPrediction">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseCommandPrediction" aria-expanded="false" aria-controls="flush-collapseCommandPrediction">
+                      Nueva Predicción
+                    </button>
+                  </h2>
+                  <div id="flush-collapseCommandPrediction" class="accordion-collapse collapse" aria-labelledby="flush-headingCommandPrediction" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            <div class="card">
+                              <div class="card-body">
+                                <h5 class="text-success-emphasis">Predicción de pacientes con déficit de Vitamina D usando Random Forest</h5>
+                                <!---<ul class="nav nav-tabs d-flex nav-tabs-bordered" id="borderedTabJustified" role="tablist">
+                                  <li class="nav-item flex-fill" role="presentation">
+                                    <button class="active text-capitalize fs-5 nav-link w-100" id="NavRF" data-bs-toggle="tab" data-bs-target="#RF" type="button" role="tab" aria-controls="home" aria-selected="true">Random Forest</button>
+                                  </li>
+                                  <li class="nav-item flex-fill" role="presentation">
+                                    <button class="fs-5 nav-link w-100" id="NavSVM" data-bs-toggle="tab" data-bs-target="#SVM" type="button" role="tab" aria-controls="profile" aria-selected="false">Support Vector Machine</button>
+                                  </li>
+                                  <li class="nav-item flex-fill" role="presentation">
+                                    <button class="fs-5 nav-link w-100" id="NavRL" data-bs-toggle="tab" data-bs-target="#RL" type="button" role="tab" aria-controls="contact" aria-selected="false">Regresión logística</button>
+                                  </li>
+                                </ul>--->
+                                <div class="row">
+                                  <div class="col-md-6 col-xxl-12">
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <h6 class="text-muted card-subtitle mb-2">Seleccione el paciente&nbsp;</h6>
+                                        <div>
+                                          <div class="table-responsive-custom">
+                                            <style>
+                                              .table-responsive-custom {
+                                                max-height: calc(50px * 5); /* Ajusta este valor si el alto de tus filas es diferente */
+                                                overflow-y: auto;
+                                              }
+                                              </style>
+                                            <table class="table table-hover">
+                                              <thead>
+                                                <tr>
+                                                  <th scope="col">#</th>
+                                                  <th scope="col">Edad</th>
+                                                  <th scope="col">Sexo</th>
+                                                  <th scope="col">IMC</th>
+                                                  <th scope="col">Cintura</th>
+                                                  <th scope="col">Masa Muscular</th>
+                                                  <th scope="col">Predecir</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                {% for paciente in pacientes %}
+                                                <tr class="clickable-row" data-id="{{ paciente.id }}">
+                                                  <td scope="row">{{ paciente.id }}</td>
+                                                  <td>{{ paciente.edad }}</td>
+                                                  <td>{{ paciente.sexo }}</td>
+                                                  <td>{{ paciente.imc }}</td>
+                                                  <td>{{ paciente.cintCad}}</td>
+                                                  <td>{{ paciente.masaMusc}}</td>
+                                                  <td>
+                                                    <button class="btn btn-primary btn-predict" data-id="{{ paciente.id }}">Predecir</button>
+                                                  </td>
+                                                </tr>
+                                                {% endfor %}
+                                              </tbody>                      
+                                            </table>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                  
+                                </div>
+                                <div id="predict-url" data-url="{% url 'hacer_prediccion' %}" style="display:none;"></div>
+                                <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                                  <div id="RD" class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+              
+                                    <div class="row">
+                                      <div class="col-xxl-12">
+                                        <label class="form-label">El paciente &nbsp;</label>
+                                        <label class="form-label" id="pacienteId">1&nbsp;</label>
+                                        <label class="form-label fs-5 text-danger" id="respuesta">Si&nbsp;</label><label class="form-label"><br /> registra déficit de vitamina D con un&nbsp;&nbsp;</label><label class="form-label fs-5 text-success" id="probabilidad">70%</label><label class="form-label">&nbsp; de probabilidad</label>
+                                      </div>
+                                    </div>
+                                    <div class="row text-center" style="margin-top: 10px; margin-bottom: 10px">
+                                      <div class="col-md-4 col-xxl-1 align-self-end">
+                                        <h6 class="text-center text-danger">Bajo</h6>
+                                      </div>
+                                      <div class="col-md-4 col-xxl-10 text-center align-self-center">
+                                        <div class="text-center progress mt-3">
+                                          <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4 col-xxl-1 align-self-end">
+                                        <h6 class="text-center text-success d-xxl-flex">Alto</h6>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-xxl-12" style="margin-top: 10px">
+                                        <div class="card">
+                                          <div class="card-body">
+                                            <h6 class="card-title">Factores de riesgo</h6>
+                                            <canvas id="importanceChart" style="max-height: 400px"></canvas>
+                                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                            <script>
+                                              $(document).ready(function() {
+                                                  var importanceChart;  // Define la variable fuera del evento click para que sea accesible globalmente
+                                              
+                                                  $('.btn-predict').on('click', function() {
+                                                      var pacienteId = $(this).data('id');
+                                                      $.ajax({
+                                                          url: $('#predict-url').data('url'),
+                                                          type: 'POST',
+                                                          data: {
+                                                              id: pacienteId,  // Asegúrate de enviar el ID correcto del paciente
+                                                              csrfmiddlewaretoken: '{{ csrf_token }}'
+                                                          },
+                                                          success: function(response) {
+                                                              // Actualiza texto y barra de progreso
+                                                              updateResultText(response.prediccion, response.probabilidad);
+                                                              updateProgressBar(response.probabilidad);
+                                                              
+                                                              // Visualiza la importancia de los predictores
+                                                              var ctx = document.getElementById('importanceChart').getContext('2d');
+                                                              if (importanceChart) {  // Verifica si importanceChart ya existe
+                                                                  importanceChart.destroy();  // Destruye la instancia anterior si existe
+                                                              }
+                                                              importanceChart = new Chart(ctx, {  // Crea una nueva instancia
+                                                                  type: 'bar',
+                                                                  data: {
+                                                                      labels: response.features,
+                                                                      datasets: [{
+                                                                          label: 'Importancia',
+                                                                          data: response.importances,
+                                                                          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                                                          borderColor: 'rgba(54, 162, 235, 1)',
+                                                                          borderWidth: 1
+                                                                      }]
+                                                                  },
+                                                                  options: {
+                                                                      scales: {
+                                                                          y: {
+                                                                              beginAtZero: true
+                                                                          }
+                                                                      }
+                                                                  }
+                                                              });
+                                                          },
+                                                          error: function(xhr, status, error) {
+                                                              console.error('Error al realizar la predicción: ', error);
+                                                          }
+                                                      });
+                                                  });
+                                              });
+                                              </script>
+                                              
+                                            
+                                              </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div id="SVM" class="tab-pane fade" role="tabpanel" aria-labelledby="profile-tab">
+                                    <span>Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.</span>
+                                  </div>
+                                  <div id="RL" class="tab-pane fade" role="tabpanel" aria-labelledby="contact-tab">
+                                    <span>Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.</span>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-xxl-12">
+                                      <!--- <label class="form-label"><br />La presición de la predicción es del&nbsp;</label><label class="form-label fs-5 text-success" id="acuracy">88%</label> --->
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Accordion Item for Admitted Patients -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingAdmittedPatients">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAdmittedPatients" aria-expanded="false" aria-controls="flush-collapseAdmittedPatients">
+                      Pacientes Ingresados
+                    </button>
+                  </h2>
+                  <div id="flush-collapseAdmittedPatients" class="accordion-collapse collapse" aria-labelledby="flush-headingAdmittedPatients" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body">
+                              <p>Pacientes ingresados</p>
+                              <div>
+                                <table class="table datatable">
+                                  <thead>
+                                    <tr>
+                                      <th>Fecha de Registro</th>
+                                      <th>Edad</th>
+                                      <th>Sexo</th>
+                                      <th>IMC</th>
+                                      <th>Cintura Cadera</th>
+                                      <th>Grasa Corporal</th>
+                                      <th>Cigarrillos</th>
+                                      <th>Alcohol</th>
+                                      <th>Actividad Física</th>
+                                      <th>Vitamina D</th>
+                                      <th>Observaciones</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  {% for paciente in pacientes %}
+                                    <tr>
+                                      <td>{{ paciente.fechaReg }}</td>
+                                      <td>{{ paciente.edad }}</td>
+                                      <td>{{ paciente.sexo }}</td>
+                                      <td>{{ paciente.imc }}</td>
+                                      <td>{{ paciente.cintCad }}</td>
+                                      <td>{{ paciente.grasaCorpl }}</td>
+                                      <td>{{ paciente.cigarrillos }}</td>
+                                      <td>{{ paciente.alcohol }}</td>
+                                      <td>{{ paciente.actFisica }}</td>
+                                      <td>{{ paciente.vitaminaD }}</td>
+                                      <td>{{ paciente.observaciones }}</td>
+                                    </tr>
+                                  {% empty %}
+                                    <tr>
+                                      <td colspan="11">No hay registros disponibles.</td>
+                                    </tr>
+                                  {% endfor %}
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Accordion Item for Made Predictions -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingMadePredictions">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseMadePredictions" aria-expanded="false" aria-controls="flush-collapseMadePredictions">
+                      Predicciones Realizadas
+                    </button>
+                  </h2>
+                  <div id="flush-collapseMadePredictions" class="accordion-collapse collapse" aria-labelledby="flush-headingMadePredictions" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title">Historial de Predicciones</h5>
+                              <input type="text" id="searchInput" placeholder="Buscar..." class="form-control mb-3">
+                              <table class="table table-hover" id="prediccionesTable">
+                                          <tr>
+                                              <th>#</th>
+                                              <th>Edad</th>
+                                              <th>Sexo</th>
+                                              <th>IMC</th>
+                                              <th>Cintura Cadera</th>
+                                              <th>Grasa Corporal</th>
+                                              <th>Piel</th>
+                                              <th>Déficit (%)</th>
+                                              <th>Modelo</th>
+                                              <th>Fecha de Predicción</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for prediccion in predicciones %}
+                                          <tr>
+                                            <td>{{ prediccion.id }}</td>
+                                              <td>{{ prediccion.edad }}</td>
+                                              <td>{{ prediccion.sexo }}</td>
+                                              <td>{{ prediccion.imc }}</td>
+                                              <td>{{ prediccion.cintCad }}</td>
+                                              <td>{{ prediccion.grasaCorpl }}</td>
+                                              <td>{{ prediccion.piel }}</td>
+                                              <td>{{ prediccion.deficit }}%</td>
+                                              <td>{{ prediccion.modelo }}</td>
+                                              <td>{{ prediccion.fechaPred }}</td>
+                                          </tr>
+                                          {% empty %}
+                                          <tr>
+                                              <td colspan="9">No hay predicciones disponibles.</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                              <div class="pagination">
+                                  <span class="step-links">
+                                      {% if predicciones.has_previous %}
+                                          <a href="?page=1">&laquo; first</a>
+                                          <a href="?page={{ predicciones.previous_page_number }}">previous</a>
+                                      {% endif %}
+                                      <span class="current">
+                                          Pagina {{ predicciones.number }} de {{ predicciones.paginator.num_pages }}.
+                                      </span>
+                                      {% if predicciones.has_next %}
+                                          <a href="?page={{ predicciones.next_page_number }}">next</a>
+                                          <a href="?page={{ predicciones.paginator.num_pages }}">last &raquo;</a>
+                                      {% endif %}
+                                  </span>
+                              </div>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingSummaryByJorge">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSummaryByJorge" aria-expanded="false" aria-controls="flush-collapseSummaryByJorge">
+                      Resumen de Entradas
+                    </button>
+                  </h2>
+                  <div id="flush-collapseSummaryByJorge" class="accordion-collapse collapse" aria-labelledby="flush-headingSummaryByJorge" data-bs-parent="#dashboardAccordion">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <div class="col-lg-8">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="filter">
+                                  <a class="icon" href="#" data-bs-toggle="dropdown"
+                                    ><i class="bi bi-three-dots"></i
+                                  ></a>
+                                  <ul
+                                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                                  >
+                                    <li class="text-start dropdown-header">
+                                      <h6>Filtro</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Metricas</a></li>
+                                    <li><a class="dropdown-item" href="#">Pacientes</a></li>
+                                    <li>
+                                      <a class="dropdown-item" href="#">Predicciones</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="card-body">
+                                  <h5 class="card-title">Resultados<span>/Métricas</span></h5>
+                                  <div id="reportsChart"></div>
+                                  <canvas id="lineChart" style="max-height: 400px"></canvas>
+                                  <script>
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                    const metricasData = JSON.parse('{{ metricas_data_json|safe }}');
+                                    console.log(metricasData);
+                                      new ApexCharts(document.querySelector("#reportsChart"), {
+                                        series: [{
+                                            name: "Accuracy",
+                                            data: metricasData.accuracy
+                                          },
+                                          {
+                                            name: "Recall",
+                                            data: metricasData.recall
+                                          },
+                                          {
+                                            name: "F1 Score",
+                                            data: metricasData.f1_score
+                                          },
+                                          {
+                                            name: "Presicion",
+                                            data: metricasData.precision
+                                          }
+                                        ],
+                                        chart: {
+                                          height: 350,
+                                          type: "line",
+                                          zoom: {
+                                            enabled: false
+                                          }
+                                        },
+                                        dataLabels: {
+                                          enabled: false
+                                        },
+                                        stroke: {
+                                          curve: "smooth"
+                                        },
+                                        title: {
+                                          text: 'Métricas de rendimiento a lo largo del tiempo',
+                                          align: 'left'
+                                        },
+                                        grid: {
+                                          row: {
+                                            colors: ['#f3f3f3', 'transparent'],
+                                            opacity: 0.5
+                                          },
+                                        },
+                                        xaxis: {
+                                          type: 'datetime',
+                                          categories: metricasData.fechas
+                                        },
+                                        tooltip: {
+                                          x: {
+                                            format: 'dd MMM yyyy HH:mm'
+                                          }
+                                        },
+                                        theme: {
+                                          mode: 'light',
+                                          palette: 'palette1',
+                                          monochrome: {
+                                            enabled: false,
+                                            color: '#255aee',
+                                            shadeTo: 'light',
+                                            shadeIntensity: 0.65
+                                          },
+                                        }
+                                      }).render();
+                                    });
+                                    </script>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="card">
+                            <div class="filter">
+                              <a class="icon" href="#" data-bs-toggle="dropdown"
+                                ><i class="bi bi-three-dots"></i
+                              ></a>
+                              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="text-start dropdown-header"><h6>Filter</h6></li>
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                              </ul>
+                            </div>
+                            <div class="card-body">
+                              <h5 class="card-title">
+                                Actividad Reciente&nbsp;<span>| Today</span>
+                              </h5>
+                              <div class="activity">
+                                {% for actividad in actividades %}
+                                <div class="d-flex activity-item">
+                                  <div class="activite-label">
+                                    <span>{{ actividad.tiempo }}</span>
+                                  </div>
+                                  <i class="align-self-start bi bi-circle-fill activity-badge {% if actividad.tipo == 1 %} text-primary {% elif actividad.tipo == 2 %} text-success {% elif actividad.tipo == 3 %} text-danger {% endif %}"></i>
+                                  <div class="activity-content">
+                                    {{ actividad.observacion }}
+                                  </div>
+                                </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Accordion -->
+
+              
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        <span> © Copyright </span><strong><span>Universidad Técnica Particular de loja</span></strong
+        ><span>. All Rights Reserved </span>
+      </div>
+    </footer>
+    <a
+      class="d-flex justify-content-center align-items-center back-to-top"
+      href="#"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+        <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    // Selecciona todos los botones de "Expandir" y asigna un manejador de eventos
+    document.querySelectorAll('.btn-expandir').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var pacienteId = this.getAttribute('data-id'); // Obtén el ID del paciente desde el atributo data-id
+
+            // Realizar la solicitud para obtener detalles del paciente
+            fetch(`/obtener_detalle_paciente/?id=${pacienteId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener la información del paciente');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Actualizar el contenido del modal con los datos del paciente
+                document.getElementById('labelCedula').textContent = data.id;
+                document.getElementById('labelSexo').textContent = data.sexo;
+                document.getElementById('labelEdad').textContent = data.edad;
+                document.getElementById('labelIMC').textContent = data.imc;
+                document.getElementById('labelCintura').textContent = data.cintura;
+                document.getElementById('labelGrasa').textContent = data.grasa_corporal;
+                document.getElementById('labelCigarrilos').textContent = data.cigarrillos;
+                document.getElementById('labelPiel').textContent = data.piel;
+                document.getElementById('labelMasa').textContent = data.masa_muscular;
+                document.getElementById('labelAct').textContent = data.actividad_fisica;
+                document.getElementById('labelProtector').textContent = data.protector_solar;
+                document.getElementById('labelExpoDías').textContent = data.exposicion_dias;
+                document.getElementById('labelExpoMin').textContent = data.exposicion_minutos;
+                document.getElementById('labelVitaD').textContent = data.vitamina_d;
+
+                // Muestra el modal
+                $('#pacienteModal').modal('show');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al obtener los datos del paciente.');
+            });
+        });
+    });
+});
+    </script>
+  <script>
+  function mostrarPrediccion(data) {
+      document.getElementById('pacienteId').textContent = data.id_paciente;
+      document.getElementById('respuesta').textContent = data.prediccion > 0.5 ? 'Sí' : 'No';
+      document.getElementById('respuesta').style.color = data.prediccion > 0.5 ? 'red' : 'green';
+      document.getElementById('probabilidad').textContent = `${(data.probabilidad * 100).toFixed(2)}%`;
+      var barra = document.querySelector('.progress-bar');
+      barra.style.width = `${data.probabilidad * 100}%`;
+      barra.style.backgroundColor = data.probabilidad > 0.75 ? 'red' : data.probabilidad > 0.25 ? 'yellow' : 'green';
+  }
+  </script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  var selectedAlgorithm = $('#NavRF').text().trim();  // Inicialmente, selecciona Random Forest
+
+  $('#NavRF, #NavSVM, #NavRL').on('click', function() {
+    selectedAlgorithm = $(this).text().trim();
+    console.log("Selected Algorithm:",selectedAlgorithm)
+    $('.nav-item .nav-link').removeClass('active');
+    $(this).addClass('active');
+  });
+
+  $('.btn-predict').on('click', function() {
+    var pacienteId = $(this).data('id');  // Captura el ID del paciente desde el atributo 'data-id' del botón
+
+    $.ajax({
+        url: $('#predict-url').data('url'),  // Extrae la URL desde el atributo data
+        type: 'POST',
+        data: {
+            id: pacienteId,
+            algoritmo: selectedAlgorithm,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+            // Actualizar la interfaz con los resultados, pasando el ID del paciente
+            updateResultText(pacienteId, response.prediccion, response.probabilidad, response.metricas);
+            updateProgressBar(response.probabilidad);
+            let mensajeResultado = response.prediccion === 0
+                ? "Resultado negativo para deficiencia de vitamina D."
+                : "Resultado positivo para deficiencia de vitamina D.";
+            alert('Predicción realizada con éxito: ' + mensajeResultado);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error al realizar la predicción: ', error);
+        }
+        
+    });
+    
+});
+});
+
+function getProbabilidadColor(probabilidad) {
+    if (probabilidad <= 0.33) {
+      return 'red'; // Bajo
+    } else if (probabilidad <= 0.63) {
+      return 'yellow'; // Medio
+    } else {
+      return 'green'; // Alto
+    }
+}
+
+function updateProgressBar(probabilidad) {
+    var color = getProbabilidadColor(probabilidad);
+    $('.progress-bar').css({
+      'width': `${probabilidad * 100}%`,
+      'background-color': color
+    });
+}
+
+function updateResultText(pacienteId, prediccion, probabilidad, metricas) {
+    $('#pacienteId').text(pacienteId); // Aquí debería ir el ID del paciente dinámicamente
+    $('#respuesta').text(prediccion === 0 ? "No" : "Sí");
+    $('#respuesta').css('color', prediccion === 0 ? 'green' : 'red');
+    $('#probabilidad').text(`${(probabilidad * 100).toFixed(2)}%`);
+    $('#probabilidad').css('color', getProbabilidadColor(probabilidad));
+    
+    // Aquí puedes agregar el manejo de 'metricas' si es necesario
+}
+
+</script>
+<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+    <script>
+      var myPieChart;  // Variable global para almacenar el gráfico
+
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [],  // Etiquetas iniciales vacías
+            datasets: [{
+                data: [],  // Datos iniciales vacíos
+                backgroundColor: [],  // Colores de fondo iniciales
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
+    </script>
+    <script>
+      $(document).ready(function() {
+          $('.table-hove').DataTable({
+              "pageLength": 5,
+              "language": {
+                  "lengthMenu": "Mostrar _MENU_ registros por página",
+                  "zeroRecords": "No se encontraron datos - lo siento",
+                  "info": "Mostrando página _PAGE_ de _PAGES_",
+                  "infoEmpty": "No hay registros disponibles",
+                  "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                  "search": "Buscar:",
+                  "paginate": {
+                      "first":      "Primero",
+                      "last":       "Último",
+                      "next":       "Siguiente",
+                      "previous":   "Anterior"
+                  }
+              }
+          });
+      });
+      </script>
+      <script>
+        $(document).ready(function() {
+    $('#prediccionesTable tr').click(function() {
+        var idPrediccion = $(this).find('td').eq(0).text(); // Asumiendo que el ID está en la primera columna
+        $.ajax({
+            url: '/ruta/a/obtener_factores_riesgo', // Asegúrate de usar la URL correcta
+            data: {'id_prediccion': idPrediccion},
+            success: function(data) {
+                $('#factoresRiesgoList').empty();
+                var labels = [];
+                var importances = [];
+                if (data.factores) {
+                    data.factores.forEach(function(factor) {
+                        $('#factoresRiesgoList').append('<li class="list-group-item">' + factor.variable + ' - ' + factor.importancia.toFixed(2) + '</li>');
+                        labels.push(factor.variable);
+                        importances.push(factor.importancia);
+                    });
+                    updatePieChart(labels, importances);
+                } else {
+                    $('#factoresRiesgoList').append('<li class="list-group-item">No hay factores de riesgo disponibles.</li>');
+                }
+            },
+            error: function() {
+                alert('Error al cargar los factores de riesgo');
+            }
+        });
+    });
+});
+
+function updatePieChart(labels, importances) {
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    if (window.myPieChart instanceof Chart) {
+        window.myPieChart.destroy(); // Destruye el gráfico existente para evitar superposiciones
+    }
+    window.myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: importances,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+}
+
+
+      </script>
+  </body>
+</html>

@@ -1,0 +1,504 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Vita-D</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/styles.min.css' %}"
+    />
+  </head>
+  <body>
+    <header class="d-flex align-items-center header fixed-top" id="header">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="d-flex align-items-center logo" href="{% url 'dashboard' %}">
+          <span class="d-none d-lg-block" style="color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif">
+              VITA -&nbsp;
+          </span>
+          <img src="{% static 'assets/img/logo.png' %}" alt="VITA Logo" />
+      </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <div class="search-bar">
+        <form
+          class="d-flex align-items-center search-form"
+          method="POST"
+          action="#"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search"
+            title="Enter search keyword"
+          /><button type="submit" title="Search">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+      <nav class="ms-auto header-nav">
+        <ul class="d-flex align-items-center">
+          <li class="d-block d-lg-none nav-item">
+            <a class="nav-link nav-icon search-bar-toggle" href="#"
+              ><i class="bi bi-search"></i
+            ></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+              ><i class="bi bi-bell"></i
+              ><span class="badge bg-primary badge-number">4</span></a
+            >
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+            >
+              <li class="dropdown-header">
+                You have 4 new notifications
+                <span class="badge rounded-pill bg-primary p-2 ms-2"
+                  >View all</span
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li class="notification-item">
+                <i class="text-warning bi bi-exclamation-circle"></i>
+                <div>
+                  <h4>Lorem Ipsum</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>30 min. ago</p>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li class="notification-item">
+                <i class="text-danger bi bi-x-circle"></i>
+                <div>
+                  <h4>Atque rerum nesciunt</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>1 hr. ago</p>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li class="notification-item">
+                <i class="text-success bi bi-check-circle"></i>
+                <div>
+                  <h4>Sit rerum fuga</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>2 hrs. ago</p>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li class="notification-item">
+                <i class="text-primary bi bi-info-circle"></i>
+                <div>
+                  <h4>Dicta reprehenderit</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li class="dropdown-footer">
+                <a href="#">Show all notifications</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="bi bi-grid"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <!-- Pacientes -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#pacientes-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i>
+            <span>Pacientes</span>
+            <i class="ms-auto bi bi-chevron-down"></i>
+          </a>
+          <ul id="pacientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'nuevo_paciente' %}">
+                <i class="bi bi-circle"></i>
+                <span>Nuevo Paciente</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'historial_pacientes' %}">
+                <i class="bi bi-circle"></i>
+                <span>Historial de Pacientes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Predicciones -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#predicciones-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-menu-button-wide"></i>
+            <span>Predicciones</span>
+            <i class="ms-auto bi bi-chevron-down"></i>
+          </a>
+          <ul id="predicciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url 'nueva_prediccion' %}">
+                <i class="bi bi-circle"></i>
+                <span>Nueva Predicción</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'historial_predicciones' %}">
+                <i class="bi bi-circle"></i>
+                <span>Historial de predicciones</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- Sistema -->
+        <li class="nav-heading">Sistema</li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'profile' %}">
+            <i class="bi bi-person"></i><span>Profile</span>
+        </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'faq' %}">
+              <i class="bi bi-question-circle"></i>
+              <span>F.A.Q</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="{% url 'contact' %}">
+              <i class="bi bi-envelope"></i>
+              <span>Contact</span>
+          </a>
+      </li>
+      </ul>
+    </aside>    
+    <main id="main" class="main">
+      <div class="pagetitle">
+          <h1>Dashboard</h1>
+          <nav>
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'dashboard' %}"><span>Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+        <section class="section dashboard">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Pacientes <span>| Hoy</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-3">
+                      <h6>{{ total_pacientes }}</h6>
+                     <!--  <span class="fw-bold text-success small pt-1">12%</span
+                      >-->
+                      <span class="text-muted small pt-2 ps-1">registrados</span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6 col-xl-3 mb-4">
+          <div class="card info-card revenue-card">
+              <div class="card-body">
+                  <h5 class="card-title">Predicciones<span>| Hoy</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                    >
+                      <i class="bi bi-file-earmark-check"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{ total_predicciones }}</h6>
+                     <!--   <span class="fw-bold text-success small pt-1">8%</span
+                      > --->
+                      <span class="text-muted small pt-2 ps-1">realizadas</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-xxl-3">
+              <div class="card info-card customers-card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"
+                    ><i class="bi bi-three-dots"></i
+                  ></a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                  >
+                  <li class="text-start dropdown-header"><h6>Filtro</h6></li>
+                  <li><a class="dropdown-item" href="#">Hoy</a></li>
+                  <li><a class="dropdown-item" href="#">Este mes</a></li>
+                  <li><a class="dropdown-item" href="#">Este año</a></li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Presición<span>| Hoy</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                    >
+                      <i class="bi bi-file-earmark-bar-graph-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{ accuracy_promedio }} %</h6>
+                      <span class="fw-bold text-success small pt-1">70-30%</span
+                      ><span class="text-muted small pt-2 ps-1">train-test</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-xxl-3">
+              <div class="card info-card customers-card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"
+                    ><i class="bi bi-three-dots"></i
+                  ></a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                  >
+                  <li class="text-start dropdown-header"><h6>Filtro</h6></li>
+                  <li><a class="dropdown-item" href="#">Hoy</a></li>
+                  <li><a class="dropdown-item" href="#">Este mes</a></li>
+                  <li><a class="dropdown-item" href="#">Este año</a></li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Factores de Riesgo<span>| Hoy</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="d-flex justify-content-center align-items-center card-icon rounded-circle"
+                    >
+                      <i class="bi bi-exclamation-square-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{ promedio_factores }}</h6>
+                      <!-- <span class="fw-bold text-danger small pt-1">12%</span
+                      > --->
+                      <span class="text-muted small pt-2 ps-1">promedio de pacientes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End: 1 Row 4 Columns -->
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="text-start dropdown-header">
+                        <h6>Filtro</h6>
+                      </li>
+                      <li><a class="dropdown-item" href="#">Metricas</a></li>
+                      <li><a class="dropdown-item" href="#">Pacientes</a></li>
+                      <li>
+                        <a class="dropdown-item" href="#">Predicciones</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Resultados<span>/Métricas</span></h5>
+                    <div id="reportsChart"></div>
+                    <canvas id="lineChart" style="max-height: 400px"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                      const metricasData = JSON.parse('{{ metricas_data_json|safe }}');
+                      console.log(metricasData);
+                        new ApexCharts(document.querySelector("#reportsChart"), {
+                          series: [{
+                              name: "Accuracy",
+                              data: metricasData.accuracy
+                            },
+                            {
+                              name: "Recall",
+                              data: metricasData.recall
+                            },
+                            {
+                              name: "F1 Score",
+                              data: metricasData.f1_score
+                            },
+                            {
+                              name: "Presicion",
+                              data: metricasData.precision
+                            }
+                          ],
+                          chart: {
+                            height: 350,
+                            type: "line",
+                            zoom: {
+                              enabled: false
+                            }
+                          },
+                          dataLabels: {
+                            enabled: false
+                          },
+                          stroke: {
+                            curve: "smooth"
+                          },
+                          title: {
+                            text: 'Métricas de rendimiento a lo largo del tiempo',
+                            align: 'left'
+                          },
+                          grid: {
+                            row: {
+                              colors: ['#f3f3f3', 'transparent'],
+                              opacity: 0.5
+                            },
+                          },
+                          xaxis: {
+                            type: 'datetime',
+                            categories: metricasData.fechas
+                          },
+                          tooltip: {
+                            x: {
+                              format: 'dd MMM yyyy HH:mm'
+                            }
+                          },
+                          theme: {
+                            mode: 'light',
+                            palette: 'palette1',
+                            monochrome: {
+                              enabled: false,
+                              color: '#255aee',
+                              shadeTo: 'light',
+                              shadeIntensity: 0.65
+                            },
+                          }
+                        }).render();
+                      });
+                      </script>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+                  <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"
+                      ><i class="bi bi-three-dots"></i
+                    ></a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                    >
+                      <li class="text-start dropdown-header">
+                        <h6>Filter</h6>
+                      </li>
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      Pacientes ingresados&nbsp;<span>| Today</span>
+                    </h5>
+                    <div>
+                      <table class="table table-borderless datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Edad</th>
+                                <th scope="col">Sexo</th>
+                                <th scope="col">IMC</th>
+                                <th scope="col">Grasa Corporal</th>
+                                <th scope="col">Masa Muscular</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for paciente in pacientes %}
+                          <tr>
+                              <td>{{ paciente.id }}</td>
+                              <td>{{ paciente.edad }}</td>
+                              <td>{{ paciente.sexo }}</td>
+                              <td>{{ paciente.imc }}</td>
+                              <td>{{ paciente.grasaCorpl }}</td>
+                              <td>{{ paciente.masaMusc }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="text-start dropdown-header"><h6>Filter</h6></li>
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  Actividad Reciente&nbsp;<span>| Today</span>
+                </h5>
+                <div class="activity">
+                  {% for actividad in actividades %}
+                  <div class="d-flex activity-item">
+                    <div class="activite-label">
+                      <span>{{ actividad.tiempo }}</span>
+                    </div>
+                    <i class="align-self-start bi bi-circle-fill activity-badge {% if actividad.tipo == 1 %} text-primary {% elif actividad.tipo == 2 %} text-success {% elif actividad.tipo == 3 %} text-danger {% endif %}"></i>
+                    <div class="activity-content">
+                      {{ actividad.observacion }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        <span> © Copyright </span><strong><span>Ramiro Israel Vivanco</span></strong
+        ><span>. All Rights Reserved </span>
+      </div>
+    </footer>
+    <a
+      class="d-flex justify-content-center align-items-center back-to-top"
+      href="#"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+  </body>
+</html>

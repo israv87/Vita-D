@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Vita-D-Pacientes</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="d-flex align-items-center header fixed-top" id="header">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="d-flex align-items-center logo" href="{% url 'dashboard' %}"><span class="d-none d-lg-block" style="color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif">VITA -&nbsp;</span><img src="{% static 'assets/img/logo.png' %}" alt="VITA Logo" /></a><i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <div class="search-bar">
+        <form class="d-flex align-items-center search-form" method="POST" action="#">
+          <input type="text" name="query" placeholder="Search" title="Enter search keyword" /><button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+      <nav class="ms-auto header-nav">
+        <ul class="d-flex align-items-center">
+          <li class="d-block d-lg-none nav-item">
+            <a class="nav-link nav-icon search-bar-toggle" href="#"><i class="bi bi-search"></i></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-bell"></i><span class="badge bg-primary badge-number">4</span></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+              <li class="dropdown-header">
+                You have 4 new notifications
+                <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-warning bi bi-exclamation-circle"></i>
+                <div>
+                  <h4>Lorem Ipsum</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>30 min. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-danger bi bi-x-circle"></i>
+                <div>
+                  <h4>Atque rerum nesciunt</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>1 hr. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-success bi bi-check-circle"></i>
+                <div>
+                  <h4>Sit rerum fuga</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>2 hrs. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-primary bi bi-info-circle"></i>
+                <div>
+                  <h4>Dicta reprehenderit</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="dropdown-footer">
+                <a href="#">Show all notifications</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="bi bi-grid"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <!-- Pacientes -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#pacientes-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i>
+              <span>Pacientes</span>
+              <i class="ms-auto bi bi-chevron-down"></i>
+            </a>
+            <ul id="pacientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{% url 'nuevo_paciente' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Nuevo Paciente</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'historial_pacientes' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Historial de Pacientes</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- Predicciones -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#predicciones-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i>
+              <span>Predicciones</span>
+              <i class="ms-auto bi bi-chevron-down"></i>
+            </a>
+            <ul id="predicciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{% url 'nueva_prediccion' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Nueva Predicción</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'historial_predicciones' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Historial de predicciones</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- Sistema -->
+          <li class="nav-heading">Sistema</li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'profile' %}">
+              <i class="bi bi-person"></i><span>Profile</span>
+          </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'faq' %}">
+                <i class="bi bi-question-circle"></i>
+                <span>F.A.Q</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'contact' %}">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li>
+        </ul>
+      </aside>    
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Pacientes</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html"><span>Home</span></a>
+            </li>
+            <li class="breadcrumb-item active"><span>Nuevo Paciente</span></li>
+          </ol>
+        </nav>
+      </div>
+      <section class="section dashboard">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <p>Pacientes ingresados</p>
+                <div>
+                  <table class="table datatable">
+                    <thead>
+                      <tr>
+                        <th>Fecha de Registro</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        <th>IMC</th>
+                        <th>Cintura Cadera</th>
+                        <th>Grasa Corporal</th>
+                        <th>Cigarrillos</th>
+                        <th>Alcohol</th>
+                        <th>Actividad Física</th>
+                        <th>Vitamina D</th>
+                        <th>Observaciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for paciente in pacientes %}
+                      <tr>
+                        <td>{{ paciente.fechaReg }}</td>
+                        <td>{{ paciente.edad }}</td>
+                        <td>{{ paciente.sexo }}</td>
+                        <td>{{ paciente.imc }}</td>
+                        <td>{{ paciente.cintCad }}</td>
+                        <td>{{ paciente.grasaCorpl }}</td>
+                        <td>{{ paciente.cigarrillos }}</td>
+                        <td>{{ paciente.alcohol }}</td>
+                        <td>{{ paciente.actFisica }}</td>
+                        <td>{{ paciente.vitaminaD }}</td>
+                        <td>{{ paciente.observaciones }}</td>
+                      </tr>
+                    {% empty %}
+                      <tr>
+                        <td colspan="11">No hay registros disponibles.</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        <span> © Copyright </span><strong><span>Universidad Técnica Particular de loja</span></strong
+        ><span>. All Rights Reserved </span>
+      </div>
+    </footer>
+    <a
+      class="d-flex justify-content-center align-items-center back-to-top"
+      href="#"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,400 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Vita-D-Predicciones</title>
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <header class="d-flex align-items-center header fixed-top" id="header">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="d-flex align-items-center logo" href="{% url 'dashboard' %}"><span class="d-none d-lg-block" style="color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif">VITA -&nbsp;</span><img src="{% static 'assets/img/logo.png' %}" alt="VITA Logo" /></a><i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <div class="search-bar">
+        <form class="d-flex align-items-center search-form" method="POST" action="#">
+          <input type="text" name="query" placeholder="Search" title="Enter search keyword" /><button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+      <nav class="ms-auto header-nav">
+        <ul class="d-flex align-items-center">
+          <li class="d-block d-lg-none nav-item">
+            <a class="nav-link nav-icon search-bar-toggle" href="#"><i class="bi bi-search"></i></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-bell"></i><span class="badge bg-primary badge-number">4</span></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+              <li class="dropdown-header">
+                You have 4 new notifications
+                <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-warning bi bi-exclamation-circle"></i>
+                <div>
+                  <h4>Lorem Ipsum</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>30 min. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-danger bi bi-x-circle"></i>
+                <div>
+                  <h4>Atque rerum nesciunt</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>1 hr. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-success bi bi-check-circle"></i>
+                <div>
+                  <h4>Sit rerum fuga</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>2 hrs. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="notification-item">
+                <i class="text-primary bi bi-info-circle"></i>
+                <div>
+                  <h4>Dicta reprehenderit</h4>
+                  <p>Quae dolorem earum veritatis oditseno</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="dropdown-footer">
+                <a href="#">Show all notifications</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+          <!-- Dashboard -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="bi bi-grid"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <!-- Pacientes -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#pacientes-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i>
+              <span>Pacientes</span>
+              <i class="ms-auto bi bi-chevron-down"></i>
+            </a>
+            <ul id="pacientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{% url 'nuevo_paciente' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Nuevo Paciente</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'historial_pacientes' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Historial de Pacientes</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- Predicciones -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#predicciones-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i>
+              <span>Predicciones</span>
+              <i class="ms-auto bi bi-chevron-down"></i>
+            </a>
+            <ul id="predicciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{% url 'nueva_prediccion' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Nueva Predicción</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'historial_predicciones' %}">
+                  <i class="bi bi-circle"></i>
+                  <span>Historial de predicciones</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- Sistema -->
+          <li class="nav-heading">Sistema</li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'profile' %}">
+              <i class="bi bi-person"></i><span>Profile</span>
+          </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'faq' %}">
+                <i class="bi bi-question-circle"></i>
+                <span>F.A.Q</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{% url 'contact' %}">
+                <i class="bi bi-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </li>
+        </ul>
+      </aside>    
+    <main id="main" class="main">
+      <div class="pagetitle">
+        <h1>Historial de Predicciones</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html"><span>Predicciones</span></a>
+            </li>
+            <li class="breadcrumb-item active"><span>Historial de Predicciones</span></li>
+          </ol>
+        </nav>
+      </div>
+      <style>
+        .table-hover tbody tr:hover {
+            background-color: #f5f5f5;  /* Cambia el color según prefieras */
+            cursor: pointer;  /* Cambia el cursor a una mano para indicar que la fila es clickeable */
+        }
+        </style>
+      <section class="section dashboard">
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Historial de Predicciones</h5>
+                <input type="text" id="searchInput" placeholder="Buscar..." class="form-control mb-3">
+                <table class="table table-hover" id="prediccionesTable">
+                            <tr>
+                                <th>#</th>
+                                <th>Edad</th>
+                                <th>Sexo</th>
+                                <th>IMC</th>
+                                <th>Cintura Cadera</th>
+                                <th>Grasa Corporal</th>
+                                <th>Piel</th>
+                                <th>Déficit (%)</th>
+                                <th>Modelo</th>
+                                <th>Fecha de Predicción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for prediccion in predicciones %}
+                            <tr>
+                              <td>{{ prediccion.id }}</td>
+                                <td>{{ prediccion.edad }}</td>
+                                <td>{{ prediccion.sexo }}</td>
+                                <td>{{ prediccion.imc }}</td>
+                                <td>{{ prediccion.cintCad }}</td>
+                                <td>{{ prediccion.grasaCorpl }}</td>
+                                <td>{{ prediccion.piel }}</td>
+                                <td>{{ prediccion.deficit }}%</td>
+                                <td>{{ prediccion.modelo }}</td>
+                                <td>{{ prediccion.fechaPred }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="9">No hay predicciones disponibles.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if predicciones.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ predicciones.previous_page_number }}">previous</a>
+                        {% endif %}
+                        <span class="current">
+                            Pagina {{ predicciones.number }} de {{ predicciones.paginator.num_pages }}.
+                        </span>
+                        {% if predicciones.has_next %}
+                            <a href="?page={{ predicciones.next_page_number }}">next</a>
+                            <a href="?page={{ predicciones.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            </div>
+          </div>
+          
+          <section class="section dashboard">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Factores de Riesgo</h5>
+                    <ol class="list-group list-group-numbered" id="factoresRiesgoList">
+                      <!-- Los elementos de la lista se llenarán dinámicamente -->
+                    </ol> 
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Pie Chart</h5>
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+       
+            </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        <span> © Copyright </span>><strong><span>Universidad Técnica Particular de loja</span>
+        ><span>. All Rights Reserved </span>
+      </div>
+    </footer>
+    <a
+      class="d-flex justify-content-center align-items-center back-to-top"
+      href="#"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/script.min.js' %}"></script>
+    <script>
+      var myPieChart;  // Variable global para almacenar el gráfico
+
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [],  // Etiquetas iniciales vacías
+            datasets: [{
+                data: [],  // Datos iniciales vacíos
+                backgroundColor: [],  // Colores de fondo iniciales
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
+    </script>
+    <script>
+      $(document).ready(function() {
+          $('.table-hove').DataTable({
+              "pageLength": 5,
+              "language": {
+                  "lengthMenu": "Mostrar _MENU_ registros por página",
+                  "zeroRecords": "No se encontraron datos - lo siento",
+                  "info": "Mostrando página _PAGE_ de _PAGES_",
+                  "infoEmpty": "No hay registros disponibles",
+                  "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                  "search": "Buscar:",
+                  "paginate": {
+                      "first":      "Primero",
+                      "last":       "Último",
+                      "next":       "Siguiente",
+                      "previous":   "Anterior"
+                  }
+              }
+          });
+      });
+      </script>
+      <script>
+        $(document).ready(function() {
+    $('#prediccionesTable tr').click(function() {
+        var idPrediccion = $(this).find('td').eq(0).text(); // Asumiendo que el ID está en la primera columna
+        $.ajax({
+            url: '/ruta/a/obtener_factores_riesgo', // Asegúrate de usar la URL correcta
+            data: {'id_prediccion': idPrediccion},
+            success: function(data) {
+                $('#factoresRiesgoList').empty();
+                var labels = [];
+                var importances = [];
+                if (data.factores) {
+                    data.factores.forEach(function(factor) {
+                        $('#factoresRiesgoList').append('<li class="list-group-item">' + factor.variable + ' - ' + factor.importancia.toFixed(2) + '</li>');
+                        labels.push(factor.variable);
+                        importances.push(factor.importancia);
+                    });
+                    updatePieChart(labels, importances);
+                } else {
+                    $('#factoresRiesgoList').append('<li class="list-group-item">No hay factores de riesgo disponibles.</li>');
+                }
+            },
+            error: function() {
+                alert('Error al cargar los factores de riesgo');
+            }
+        });
+    });
+});
+
+function updatePieChart(labels, importances) {
+    var ctx = document.getElementById('myPieChart').getContext('2d');
+    if (window.myPieChart instanceof Chart) {
+        window.myPieChart.destroy(); // Destruye el gráfico existente para evitar superposiciones
+    }
+    window.myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: importances,
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                }
+            }
+        }
+    });
+}
+
+
+      </script>
+  </body>
+</html>

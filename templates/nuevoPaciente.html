@@ -1,0 +1,485 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/styles.min.css' %}" />
+</head>
+
+<body>
+  <header class="d-flex align-items-center header fixed-top" id="header">
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="d-flex align-items-center logo" href="{% url 'dashboard' %}"><span class="d-none d-lg-block"
+          style="color: rgb(0, 0, 0); font-family: 'Open Sans', sans-serif">VITA -&nbsp;</span><img
+          src="{% static 'assets/img/logo.png' %}" alt="VITA Logo" />
+      </a><i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+    <div class="search-bar">
+      <form class="d-flex align-items-center search-form" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword" /><button type="submit"
+          title="Search">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+    <nav class="ms-auto header-nav">
+      <ul class="d-flex align-items-center">
+        <li class="d-block d-lg-none nav-item">
+          <a class="nav-link nav-icon search-bar-toggle" href="#"><i class="bi bi-search"></i></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-bell"></i><span
+              class="badge bg-primary badge-number">4</span></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li class="notification-item">
+              <i class="text-warning bi bi-exclamation-circle"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li class="notification-item">
+              <i class="text-danger bi bi-x-circle"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li class="notification-item">
+              <i class="text-success bi bi-check-circle"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li class="notification-item">
+              <i class="text-primary bi bi-info-circle"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <!-- Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <!-- Pacientes -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#pacientes-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Pacientes</span>
+          <i class="ms-auto bi bi-chevron-down"></i>
+        </a>
+        <ul id="pacientes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'nuevo_paciente' %}">
+              <i class="bi bi-circle"></i>
+              <span>Nuevo Paciente</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'historial_pacientes' %}">
+              <i class="bi bi-circle"></i>
+              <span>Historial de Pacientes</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Predicciones -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#predicciones-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i>
+          <span>Predicciones</span>
+          <i class="ms-auto bi bi-chevron-down"></i>
+        </a>
+        <ul id="predicciones-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'nueva_prediccion' %}">
+              <i class="bi bi-circle"></i>
+              <span>Nueva Predicción</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'historial_predicciones' %}">
+              <i class="bi bi-circle"></i>
+              <span>Historial de predicciones</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Sistema -->
+      <li class="nav-heading">Sistema</li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'profile' %}">
+          <i class="bi bi-person"></i><span>Profile</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'faq' %}">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url 'contact' %}">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+  <main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Pacientes</h1>
+        <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'nuevo_paciente' %}"><span>Home</a></li>
+          <li class="breadcrumb-item active"><span>Nuevo Paciente</span></li>
+        </ol>
+      </nav>
+  </div>
+  <section class="section dashboard">
+      <form method="post" action="{% url 'nuevo_paciente' %}" id="registroPaciente">
+        {% csrf_token %}
+        <div class="container">
+          <div class="row">
+            <!-- Información básica -->
+            <div class="col-auto col-md-6 col-xxl-4 offset-xxl-0">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Información básica</h5>
+                  <fieldset class="row mb-3">
+                    <legend class="text-center col-form-label col-sm-3 pt-0">Sexo</legend>
+                    <div class="col-sm-8">
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="gridRadios1" name="sexo" value="1" />
+                        <label class="form-label form-check-label" for="gridRadios1">Femenino</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="gridRadios2" name="sexo" value="2" />
+                        <label class="form-label form-check-label" for="gridRadios2">Masculino</label>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-5 col-form-label">Edad</label>
+                    <div class="col-sm-8 col-xxl-7">
+                      <input class="form-control" type="number" name="edad" placeholder="Ingrese la edad" />
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputIMC" class="col-sm-4 col-form-label">Índice de Masa Corporal (IMC)</label>
+                    <div class="col-sm-8">
+                      <input class="form-control" type="number" id="inputIMC" name="imc" placeholder="Ingrese el IMC">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-4 col-form-label">Tipo de piel</label>
+                    <div class="col-sm-8">
+                      <select class="form-select form-select" id="inputState-1" name="tipo_piel">
+                        <option value="" selected>Seleccione</option>
+                        <option value="1">TIPO 1: Piel blanca pálida; cabello rojo o rubio...</option>
+                        <option value="2">TIPO 2: Piel blanca; cabello rojo o rubio; ojos azules, color avellana o
+                          verdes...</option>
+                        <option value="3">TIPO 3: Blanco más oscuro; cualquier color de ojos o de cabello...</option>
+                        <option value="4">TIPO 4: Piel de color marrón claro...</option>
+                        <option value="5">TIPO 5: Piel de color marrón...</option>
+                        <option value="6">TIPO 6: Piel de color marrón oscuro o negro...</option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+            <!-- Estilo de vida -->
+            <div class="col-auto col-md-6 col-xxl-4">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Estilo de vida</h5>
+                  <div class="row">
+                    <div class="col">
+                      <div>
+                        <label class="form-label" for="rangoCigarrillos">Cigarrillos al día:</label>
+                        <label class="form-label" id="valorCigarrillos">0</label>
+                        <input type="range" class="form-range" id="rangoCigarrillos" name="cigarrillos" min="1" max="7"
+                          value="1">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label class="form-label" for="customRange1">Consumo de Alcohol</label>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="gridRadiosNunca" name="radioAlcohol"
+                          value="1" />
+                        <label class="form-label form-check-label" for="gridRadiosNunca">Nunca consume</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="gridRadiosModerado" name="radioAlcohol"
+                          value="2" />
+                        <label class="form-label form-check-label" for="gridRadiosModerado">Consumo moderado</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="gridRadiosElevado" name="radioAlcohol"
+                          value="3" />
+                        <label class="form-label form-check-label" for="gridRadiosElevado">Consumo elevado</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label class="form-label" for="customRange1">Actividad Física</label>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="actividadNinguna" name="actividadFisica"
+                          value="1" />
+                        <label class="form-label form-check-label" for="actividadNinguna">No realiza actividad
+                          física</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="actividadModerada" name="actividadFisica"
+                          value="2" />
+                        <label class="form-label form-check-label" for="actividadModerada">Actividad física
+                          moderada</label>
+                      </div>
+                      <div class="form-check">
+                        <input type="radio" class="form-check-input" id="actividadIntensa" name="actividadFisica"
+                          value="3" />
+                        <label class="form-label form-check-label" for="actividadIntensa">Actividad física
+                          intensa</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+          <!-- Exposición solar -->
+          <div class="col-auto col-md-6 col-xxl-4">
+          <div class="card info-card revenue-card">
+            <div class="card-body">
+              <h4 class="card-title">Exposición solar</h4>
+              <div class="row">
+                <div class="col">
+                  <div>
+                    <label class="form-label" for="rangoExposicionSol">Días a la semana que se expone al sol:</label>
+                    <label class="form-label" id="valorExposicionSol">0</label>
+                    <input type="range" class="form-range" id="rangoExposicionSol" name="exposicionSol" min="0" max="7"
+                      value="0" oninput="updateLabel('rangoExposicionSol', 'valorExposicionSol')">
+                  </div>
+                </div>
+                <div class="col-xxl-8">
+                  <label class="col-form-label" for="minutosExposicion">Minutos de exposición</label>
+                  <input class="form-control" type="number" id="minutosExposicion" name="minutosExposicion">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label" for="rangoProtectorSolar">Veces que usa protector solar al día:</label>
+                  <label class="form-label" id="valorProtectorSolar">1</label>
+                  <input type="range" class="form-range" id="rangoProtectorSolar" name="protectorSolar" min="1" max="5"
+                    value="1" oninput="updateLabel('rangoProtectorSolar', 'valorProtectorSolar')">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label" for="diasCaminata">Días a la semana que camina:</label>
+                  <input type="number" class="form-control" id="diasCaminata" name="diasCaminata" min="0" max="7"
+                    value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+          
+          <!-- Historial médico -->
+          <div class="row">
+          <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Historial médico</h4>
+              <div class="row">
+                <div class="col">
+                  <label class="form-label form-label" for="inputState-2">Consumo de Fármacos</label>
+                  <select class="form-select form-select" id="inputState-2" name="farmacos">
+                    <option value="0" selected>Ninguno</option>
+                    <option value="1">Anticoagulantes (dabigatran, rivaroxaban, warfarina; clodiprogel);</option>
+                    <option value="2">Anticonvulsivantes (valcote, carbamazepina, fenobarbital)</option>
+                    <option value="3">Antirretrovirales (atazanavir, rilpivirina)</option>
+                    <option value="4">Antimicóticos (aciclovir, fluconazol, ketoconazol)</option>
+                    <option value="5">Glucocorticoides (prednisona, dexamentasona, meticorten)</option>
+                    <option value="6">Inmunosupresores (Colchicina, Hidroxicloroquina, Sulfasalazina)</option>
+                    <option value="7">Otros</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label class="col-form-label" for="customRange1">Nivel de Vitamina D</label>
+                  <input class="form-control" type="number" name="nivelVitaminaD" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!-- Comorbilidades -->
+          <div class="col-sm-8">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Comorbilidades</h4>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault" name="diabetes" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDefault">Diabetes</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked"
+                      name="hipertiroidismo" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckChecked">Hipertiroidismo</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled"
+                      name="cancer" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled">Cancer</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckCheckedDisabled"
+                      name="osteoporosis" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckCheckedDisabled">Osteoporosis</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault-1"
+                      name="malaAbsorcion" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDefault-1">Mala absorción</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked-1"
+                      name="sindromeOvarioPoliquistico" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckChecked-1">Síndrome de Ovario
+                      Poliquístico</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled-1"
+                      name="miomatosisUterina" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled-1">Miomatosis
+                      uterina</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckCheckedDisabled-1"
+                      name="hipotiroidismo" />
+                    <label class="form-label form-check-label"
+                      for="flexSwitchCheckCheckedDisabled-1">Hipotiroidismo</label>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckDefault-2" name="fibromialgia" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDefault-2">Fibromialgia</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="flexSwitchCheckChecked-2"
+                      name="enfermedadHepatica" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckChecked-2">Enfermedad
+                      Hepática</label>
+                  </div>
+                  <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" disabled="" id="flexSwitchCheckDisabled-2"
+                      name="enfermedadRenal" />
+                    <label class="form-label form-check-label" for="flexSwitchCheckDisabled-2">Enfermedad renal</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+          <!-- Botones de acción -->
+          <div class="row">
+            <div class="col-12 d-xxl-flex align-self-center justify-content-xxl-center">
+            <button class="btn btn-outline-primary" type="reset">Limpiar Campos</button>
+            <button class="btn btn-primary" type="submit" style="margin-left: 20px">Registrar Paciente</button>
+          </div>
+        </div>
+        </div>
+      </form>
+    </section>
+  </main>
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      <span> © Copyright </span><strong><span>Universidad Técnica Particular de loja</span>
+    </div>
+  </footer>
+  <a class="d-flex justify-content-center align-items-center back-to-top" href="#"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    // Esta función se encarga de actualizar el texto del label asociado al range slider
+    function updateLabel(sliderId, labelId) {
+      var slider = document.getElementById(sliderId);
+      var label = document.getElementById(labelId);
+      label.textContent = slider.value;  // Asegurarse de que el label se actualice inmediatamente al cargar
+
+      slider.addEventListener('input', function () {
+        label.textContent = this.value;  // Asegurarse de que el label se actualice mientras se mueve el slider
+      });
+    }
+
+    // Llamar a la función para cada slider al cargar la página
+    document.addEventListener('DOMContentLoaded', function () {
+      updateLabel('rangoCigarrillos', 'valorCigarrillos');
+      updateLabel('rangoExposicionSol', 'valorExposicionSol');
+      updateLabel('rangoProtectorSolar', 'valorProtectorSolar');
+      updateLabel('diasCaminata', 'valorCaminata');
+    });
+  </script>
+
+  <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/script.min.js' %}"></script>
+</body>
+
+</html>
