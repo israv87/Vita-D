@@ -64,8 +64,5 @@ python manage.py runserver
 ## How to Use
 `Visit http://localhost:8000 to start using the application. You can log in using the superuser credentials you created.`
 
-## Contributing
-`Contributions to the project are welcome! Please fork the repository and submit pull requests with any enhancements.`
-
 ## License
-`This project is licensed under the terms of the MIT license.`
+`This project is licensed under the terms of the UTPL license.`
