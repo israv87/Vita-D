@@ -1,7 +1,7 @@
 # Vita-D: Vitamin D Deficiency Analysis and Prediction using Machine Learning models
 
 ## Project Overview
-`Vita-D is a web application designed to analyze and predict vitamin D deficiency in patients. It uses the Django framework and machine learning models to provide insights and predictions based on clinical data. Three algorithms were selected for analysis: Random Forest, Support Vector Machine, and Logistic Regression. Among these, Random Forest performed the best, and thus it was implemented in the interface for making predictions.`
+Vita-D is a web application designed to analyze and predict vitamin D deficiency in patients. It uses the Django framework and machine learning models to provide insights and predictions based on clinical data. Three algorithms were selected for analysis: Random Forest, Support Vector Machine, and Logistic Regression. Among these, Random Forest performed the best, and thus it was implemented in the interface for making predictions.
 
 ## System Requirements
 `- Python 3.8 or higher`
